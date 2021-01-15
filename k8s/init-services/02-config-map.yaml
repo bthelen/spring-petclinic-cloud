@@ -18,8 +18,7 @@ data:
 
     wavefront:
       application:
-        name: spring-petclinic-k8s
-      freemium-account: true
+        name: bet-spring-petclinic
 
     # Logging
     logging.level.org.springframework: INFO
@@ -85,28 +84,28 @@ data:
           ribbon:
             enabled: false
         gateway:
-          x-forwarded:  
-            enabled: true 
-            for-enabled: true 
-            proto-enabled: true 
-            host-append: false  
-            port-append: false  
+          x-forwarded:
+            enabled: true
+            for-enabled: true
+            proto-enabled: true
+            host-append: false
+            port-append: false
             proto-append: false
           routes:
             - id: vets-service
-              uri: http://vets-service.spring-petclinic.svc.cluster.local:8080
+              uri: http://vets-service.spc.com:8080
               predicates:
                 - Path=/api/vet/**
               filters:
                 - StripPrefix=2
             - id: visits-service
-              uri: http://visits-service.spring-petclinic.svc.cluster.local:8080
+              uri: http://visits-service.spc.com:8080
               predicates:
                 - Path=/api/visit/**
               filters:
                 - StripPrefix=2
             - id: customers-service
-              uri: http://customers-service.spring-petclinic.svc.cluster.local:8080
+              uri: http://customers-service.spc.com:8080
               predicates:
                 - Path=/api/customer/**
               filters:
