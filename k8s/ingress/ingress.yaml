@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: api-gateway
+  name: spring-petclinic-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: contour
+    kubernetes.io/tls-acme: "true"
+  namespace: spring-petclinic
+spec:
+  tls:
+    - secretName: spring-petclinic
+      hosts:
+        - spring-petclinic.pa-bthelen-demo-1.betlab.cloud
+  rules:
+    - host: spring-petclinic.pa-bthelen-demo-1.betlab.cloud
+      http:
+        paths:
+          - backend:
+              serviceName: api-gateway
+              servicePort: 8080
